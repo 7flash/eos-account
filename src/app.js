@@ -2,6 +2,7 @@ import express from 'express';
 import path from 'path';
 import logger from 'morgan';
 import bodyParser from 'body-parser';
+import cors from 'cors'
 import routes from './routes';
 
 const app = express();
@@ -14,6 +15,7 @@ app.set('view engine', 'pug');
 app.use(logger('dev', {
   skip: () => app.get('env') === 'test'
 }));
+app.use(cors())
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, '../public')));
