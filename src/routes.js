@@ -12,15 +12,13 @@ routes.get('/', (req, res) => {
 
 routes.post('/newaccount', async (req, res, next) => {
   const { publicKey } = req.body
-
   if (!publicKey) {
     return next(new Error('The "publicKey" parameter is required'))
   }
-
-  const serviceAccount = process.env.serviceAccount
-  const eos = getEosInstance()
-
   const accountName = generateAccountName(publicKey)
+
+  const { serviceAccount, bytesGift, netGift, cpuGift } = process.env
+  const eos = getEosInstance()
 
   try {
     const { transaction_id } = await eos.transaction(tx => {
@@ -35,6 +33,14 @@ routes.post('/newaccount', async (req, res, next) => {
         payer: serviceAccount,
         receiver: accountName,
         bytes: 8192
+      })
+
+      tx.delegatebw({
+        from: serviceAccount,
+        receiver: accountName,
+        stake_net_quantity: `${netGift} EOS`,
+        stake_cpu_quantity: `${cpuGift} EOS`,
+        transfer: 0
       })
     })
 
