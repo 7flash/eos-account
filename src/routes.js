@@ -44,6 +44,8 @@ routes.post('/newaccount', async (req, res, next) => {
       })
     })
 
+    console.log('new account', accountName, publicKey, netGift, cpuGift)
+
     return res.json({ accountName, transaction_id })
   } catch (error) {
     return res.json({ error: error.toString() })
