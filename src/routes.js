@@ -32,7 +32,7 @@ routes.post('/newaccount', async (req, res, next) => {
       tx.buyrambytes({
         payer: serviceAccount,
         receiver: accountName,
-        bytes: 8192
+        bytes: Number.parseInt(bytesGift)
       })
 
       tx.delegatebw({
