@@ -11,11 +11,15 @@ routes.get('/', (req, res) => {
 });
 
 routes.post('/newaccount', async (req, res, next) => {
-  const { publicKey } = req.body
+  const { publicKey, accountName } = req.body
+
   if (!publicKey) {
     return next(new Error('The "publicKey" parameter is required'))
   }
-  const accountName = generateAccountName(publicKey)
+
+  if (!accountName) {
+    accountName = generateAccountName(publicKey)
+  }
 
   const { serviceAccount, bytesGift, netGift, cpuGift } = process.env
   const eos = getEosInstance()
