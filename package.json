@@ -24,7 +24,7 @@
     "body-parser": "^1.18.2",
     "cors": "^2.8.4",
     "eosjs": "^16.0.7",
-    "express": "^4.16.2",
+    "express": "^4.17.3",
     "morgan": "^1.9.0",
     "pug": "^2.0.0-beta11",
     "rimraf": "^2.6.2"
